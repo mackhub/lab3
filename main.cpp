@@ -1,7 +1,7 @@
 #include <iostream>
 
 // uncomment line below to get debugging information
-//#define _DEBUG
+//#define _CALC_DEBUG
 
 #include "Stack.h"
 #include "Calculator.h"

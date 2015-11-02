@@ -2,10 +2,10 @@
 
 #include "Calculator.h"
 
-#ifdef _DEBUG
-#define DEBUG(a) a
+#ifdef _CALC_DEBUG
+#define CALC_DEBUG(a) a
 #else
-#define DEBUG(a)
+#define CALC_DEBUG(a)
 #endif
 
 
@@ -23,7 +23,7 @@ double Calculator::CalculateFromInfix(string infix)
 	case '5':	case '6':	case '7':	case '8':	case '9':
 
 	  // digits, i.e. operands.  assumption is that each operand is a single digit
-	  DEBUG(cout << "pushing val " << ch - '0' << endl);
+	  CALC_DEBUG(cout << "pushing val " << ch - '0' << endl);
 	  valStack.push(ch - '0');
 	  break;
 
@@ -32,13 +32,13 @@ double Calculator::CalculateFromInfix(string infix)
 	  // operators
 	  if (opStack.isEmpty()) {
 
-		DEBUG(cout << "pushing  op " << ch << endl);
-		opStack.push(ch);
+	    CALC_DEBUG(cout << "pushing  op " << ch << endl);
+	    opStack.push(ch);
 
 	  } else if (precedence(ch) > precedence(opStack.peek())) {
 
-		DEBUG(cout << "pushing  op " << ch << endl);
-		opStack.push(ch);
+	    CALC_DEBUG(cout << "pushing  op " << ch << endl);
+	    opStack.push(ch);
 
 	  } else {
 
@@ -46,14 +46,14 @@ double Calculator::CalculateFromInfix(string infix)
 		  executeSteps();
 		}
 
-		DEBUG(cout << "pushing  op " << ch << endl);
+		CALC_DEBUG(cout << "pushing  op " << ch << endl);
 		opStack.push(ch);
 	  }
 	  break;
 
 	case '(':
 
-	  DEBUG(cout << "pushing  op " << ch << endl);
+	  CALC_DEBUG(cout << "pushing  op " << ch << endl);
 	  opStack.push(ch);
 	  break;
 
@@ -62,7 +62,7 @@ double Calculator::CalculateFromInfix(string infix)
 	  while (opStack.peek() != '(') {
 		executeSteps();
 	  }
-	  DEBUG(cout << "popping  op " << endl);
+	  CALC_DEBUG(cout << "popping  op " << endl);
 	  opStack.pop();
 	  break;
 
@@ -113,15 +113,15 @@ void Calculator::executeSteps() {
   double result;
 
   double operand2 = valStack.peek();
-  DEBUG(cout << "popping val " << operand2 << endl);
+  CALC_DEBUG(cout << "popping val " << operand2 << endl);
   valStack.pop();
 
   double operand1 = valStack.peek();
-  DEBUG(cout << "popping val " << operand1 << endl);
+  CALC_DEBUG(cout << "popping val " << operand1 << endl);
   valStack.pop();
 
   char op = opStack.peek();
-  DEBUG(cout << "popping  op " << op << endl);
+  CALC_DEBUG(cout << "popping  op " << op << endl);
   opStack.pop();
 
   switch(op) {
@@ -147,7 +147,7 @@ void Calculator::executeSteps() {
 	  break;
   }
 
-  DEBUG(cout << "pushing val " << result << endl);
+  CALC_DEBUG(cout << "pushing val " << result << endl);
   valStack.push(result);
   return;
 }
