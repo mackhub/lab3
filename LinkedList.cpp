@@ -130,6 +130,7 @@ template <class ItemType> bool LinkedList <ItemType>::remove(int position)
 	delete curPtr;
 	curPtr = nullptr;
 	count--;
+	result = true;
   }
 
   return result;
